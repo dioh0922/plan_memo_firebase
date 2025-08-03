@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "/home/user/develop/plan_memo_firebase/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
