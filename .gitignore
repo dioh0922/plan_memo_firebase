@@ -22,3 +22,5 @@ pnpm-debug.log*
 *.sln
 *.sw?
 *.cache
+env/.env
+/extApi/vendor
