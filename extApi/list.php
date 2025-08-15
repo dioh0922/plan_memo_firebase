@@ -1,4 +1,7 @@
 <?php
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Headers: Content-Type
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
