@@ -37,10 +37,10 @@ const list = ref([])
 
 const deletePlan = async (id) => {
   axios.delete(process.env.VUE_APP_API_URL + '/delete.php/' + id)
-  .then(res => {
-    this.fetchList()
+  .then(() => {
+    fetchList()
   }).catch(err => {
-
+    console.log(err)
   })
 }
 
@@ -62,7 +62,7 @@ const fetchList = () => {
 
 onMounted(() => {
   isInit.value = true
-  this.fetchList()
+  fetchList()
 })
 </script>
 
