@@ -1,26 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <v-app>
+      <v-app-bar app absolute color="primary">
+        <v-app-bar-title>
+          実現機能ネタまとめ
+        </v-app-bar-title>
+      </v-app-bar>
+      <v-main>
+        <RouteList />
+      </v-main>
+    </v-app>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+<script setup>
+import { ref, onMounted } from 'vue'
+import RouteList from './components/routeList.vue'
+  const isInit = ref(false)
+  onMounted(() => {
+    isInit.value = true
+  })
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
