@@ -36,22 +36,11 @@ const isInit = ref(false)
 const list = ref([])
 
 const deletePlan = async (id) => {
-  await fetch("/api/plans/" + id ,{
-    method: 'DELETE',
-    body: JSON.stringify({id: id}),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => {
-    if(res.status != 200){
-      //showError({statusCode: res.status, statusMessage: res.statusText })
-    }else{
-      res.json().then((json) => {
-        if(json.result > 0){
-          //reloadNuxtApp()
-        }
-      })
-    }
+  axios.delete(process.env.VUE_APP_API_URL + '/delete.php/' + id)
+  .then(res => {
+    this.fetchList()
+  }).catch(err => {
+
   })
 }
 
@@ -59,8 +48,7 @@ const filterList = computed(() => {
   return list.value.filter(item => item.is_delete == 0)
 })
 
-onMounted(() => {
-  isInit.value = true
+const fetchList = () => {
   axios.get(process.env.VUE_APP_API_URL + '/list.php')
   .then(res => {
     console.log(res)
@@ -70,6 +58,11 @@ onMounted(() => {
   }).catch(err => {
     console.log(err)
   })
+}
+
+onMounted(() => {
+  isInit.value = true
+  this.fetchList()
 })
 </script>
 
