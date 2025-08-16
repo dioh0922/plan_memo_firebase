@@ -24,3 +24,4 @@ pnpm-debug.log*
 *.cache
 env/.env
 /extApi/vendor
+.env

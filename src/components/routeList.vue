@@ -61,7 +61,7 @@ const filterList = computed(() => {
 
 onMounted(() => {
   isInit.value = true
-  axios.get('/extApi/list.php')
+  axios.get(process.env.VUE_APP_API_URL + '/list.php')
   .then(res => {
     console.log(res)
     if(res.data.success){
