@@ -49,9 +49,12 @@ if (!$stmt) {
 
 $stmt->bind_param("i", $id);
 if ($stmt->execute()) {
-  http_response_code(400);
-  echo "Record with ID {$id} updated successfully.";
+  echo json_encode([
+    'success' => true,
+    'msg' => "Record with ID {$id} updated successfully.";
+  ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 } else {
+  http_response_code(400);
   echo "Error: " . htmlspecialchars($stmt->error);
 }
 
