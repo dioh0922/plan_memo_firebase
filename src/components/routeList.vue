@@ -37,8 +37,10 @@ const list = ref([])
 
 const deletePlan = async (id) => {
   axios.delete(process.env.VUE_APP_API_URL + '/delete.php/' + id)
-  .then(() => {
-    fetchList()
+  .then((res) => {
+    if(res.data.success){
+      fetchList()
+    }
   }).catch(err => {
     console.log(err)
   })
