@@ -57,7 +57,7 @@ $stmt->bind_param("i", $id);
 if ($stmt->execute()) {
   echo json_encode([
     'success' => true,
-    'msg' => "Record with ID {$id} updated successfully.";
+    'msg' => "Record with ID {$id} updated successfully.",
   ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 } else {
   http_response_code(400);
