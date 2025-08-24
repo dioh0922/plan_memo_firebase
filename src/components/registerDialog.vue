@@ -22,7 +22,8 @@
 </template>
 <script setup>
   import axios from 'axios'
-  import { ref } from 'vue'
+  import { ref, defineEmits } from 'vue'
+  const emit = defineEmits(['registerDone'])
   const active = ref(false)
   const summary = ref("")
   const detail = ref("")
@@ -30,7 +31,8 @@
     axios.post(process.env.VUE_APP_API_URL + '/create.php', {summary: summary.value, detail: detail.value})
     .then((res) => {
       if(res.data.success){
-        //fetchList()
+        active.value = false
+        emit('registerDone', true)
       }
     }).catch(err => {
       console.log(err)
