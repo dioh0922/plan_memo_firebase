@@ -17,6 +17,7 @@
 </template>
 
 <script setup>
+  import axios from 'axios'
   import {ref, defineProps} from 'vue'
   const props = defineProps({
     summary: String,
@@ -36,22 +37,13 @@
   const active = ref(false)
   const editFlg = ref(false)
   const editPlan = async () => {
-    await fetch("/api/plans/" + props.id,{
-      method: 'PUT',
-      body: JSON.stringify({summary: summary.value, detail: detail.value}),
-      headers: {
-          'Content-Type': 'application/json',
-      },
-    }).then((res) => {
-      if(res.status != 200){
-        //showError({statusCode: res.status, statusMessage: res.statusText })
-      }else{
-        res.json().then((json) => {
-          if(json.result > 0){
-            //reloadNuxtApp()
-          }
-        })
+    axios.put(process.env.VUE_APP_API_URL + '/edit.php/' + props.id, {summary: summary.value, detail: detail.value})
+    .then((res) => {
+      if(res.data.success){
+        //fetchList()
       }
+    }).catch(err => {
+      console.log(err)
     })
   }
 

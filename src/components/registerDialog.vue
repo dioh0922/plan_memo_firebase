@@ -21,27 +21,19 @@
   </v-card>
 </template>
 <script setup>
+  import axios from 'axios'
   import { ref } from 'vue'
   const active = ref(false)
   const summary = ref("")
   const detail = ref("")
   const addIdea = async () => {
-    await fetch("/api/plans",{
-      method: 'POST',
-      body: JSON.stringify({summary: summary.value, detail: detail.value}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => {
-      if(res.status != 200){
-        //showError({statusCode: res.status, statusMessage: res.statusText })
-      }else{
-        res.json().then((json) => {
-          if(json.result > 0){
-            //reloadNuxtApp()
-          }
-        })
+    axios.post(process.env.VUE_APP_API_URL + '/create.php', {summary: summary.value, detail: detail.value})
+    .then((res) => {
+      if(res.data.success){
+        //fetchList()
       }
+    }).catch(err => {
+      console.log(err)
     })
   }
 </script>
