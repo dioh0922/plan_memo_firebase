@@ -8,14 +8,25 @@ permissions:
   contents: read
   pull-requests: write
 jobs:
-  build_and_preview:
+  frontend_build:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Build Vue app
+        run: |
+          echo "VUE_APP_API_URL=${{ secrets.VUE_APP_API_URL }}" >> .env.production
+          npm install
+          npm run build
+
+  php_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLAN_MEMO_FIREBASE }}
-          projectId: plan-memo-firebase
+          php-version: '8.2'
+      - name: Lint PHP files in extApi/
+        run: |
+          find ./extApi -name "*.php" -print0 | xargs -0 -n1 php -l
