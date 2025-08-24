@@ -1,4 +1,6 @@
 <template>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+
   <div>
     <v-app>
       <v-app-bar app absolute color="primary">

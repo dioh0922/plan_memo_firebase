@@ -12,6 +12,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@vue/cli": "^5.0.8",
     "axios": "^1.11.0",
     "core-js": "^3.8.3",

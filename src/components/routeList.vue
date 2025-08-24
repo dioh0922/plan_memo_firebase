@@ -2,7 +2,7 @@
     <v-container>
         <v-row v-if="isInit">
             <v-col cols="4" rows="4">
-                <RegisterDialog/>
+                <RegisterDialog @registerDone="fetchList"/>
             </v-col>
             <v-col v-for="item in filterList" :key="item.id" cols="4" rows="4">
                 <v-card class="my-2" style="white-space:pre-wrap; word-wrap:break-word;">
