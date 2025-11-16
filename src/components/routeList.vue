@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <AuthButton/>
         <v-row v-if="isInit">
             <v-col cols="4" rows="4">
                 <RegisterDialog @registerDone="fetchList"/>
@@ -28,6 +29,7 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted, computed } from 'vue'
+import AuthButton from './authButton.vue'
 import RegisterDialog from './registerDialog.vue'
 import DetailDialog from './detailDialog.vue'
 
