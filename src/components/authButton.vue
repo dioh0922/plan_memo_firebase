@@ -1,6 +1,6 @@
 <template>
-  <v-btn color="secondary" v-show="!authStore.isLogin()" @click="login" :loading="loading">ログイン</v-btn>
-  <v-btn color="secondary" v-show="authStore.isLogin()" @click="logout" :loading="loading">ログアウト</v-btn>
+  <v-btn v-show="!authStore.isLogin()" @click="login" :loading="loading">ログイン</v-btn>
+  <v-btn v-show="authStore.isLogin()" @click="logout" :loading="loading">ログアウト</v-btn>
 </template>
 
 <script setup>
