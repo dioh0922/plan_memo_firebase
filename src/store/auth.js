@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth'
-import { auth } from '@/firebase'
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
+import { auth, db } from '@/firebase'
+import { ref as dbRef, get} from "firebase/database"
 
 export const useAuthStore = defineStore('auth', () => {
   const isLoggedIn = ref(false)
@@ -20,8 +21,10 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = {
         name: result.user.displayName,
         email: result.user.email,
-        uid: result.user.uid
+        uid: result.user.uid,
+        role: null
       }
+      await loadRole(result.user.uid)
     } catch (error) {
       alert(error.message)
     }
@@ -33,10 +36,24 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
   }
 
-  onAuthStateChanged(auth, () => {
-  })
+  const loadRole = async (uid) => {
+    const dataRef = dbRef(db, '/' + uid)
+    const snapshot = await get(dataRef)
+    if(snapshot.exists()){
+      const userDetail = snapshot.val()
+      user.value.role = userDetail.role
+    }
+  }
 
-  return { user, loginWithGoogle, logout, isLogin }
+  const checkRole = () => {
+    return user.value && user.value.role === 'admin'
+  }
+
+  if (auth.currentUser) {
+    isLoggedIn.value = true
+  }
+
+  return { user, loginWithGoogle, logout, isLogin, checkRole }
   
 })
 

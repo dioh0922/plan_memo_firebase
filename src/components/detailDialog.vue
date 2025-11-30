@@ -7,8 +7,8 @@
                     <v-textarea :readonly="!editFlg" v-model="detail" ></v-textarea>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn v-show="!editFlg && authStore.isLogin()" @click="editFlg = true" color="success">edit</v-btn>
-                    <v-btn v-show="editFlg && authStore.isLogin()" @click="editPlan" color="warning">save</v-btn>
+                    <v-btn v-show="!editFlg && authStore.checkRole()" @click="editFlg = true" color="success">edit</v-btn>
+                    <v-btn v-show="editFlg && authStore.checkRole()" @click="editPlan" color="warning">save</v-btn>
                     <v-btn @click="active = false">close</v-btn>
                 </v-card-actions>
             </v-card>

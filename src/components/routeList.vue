@@ -2,7 +2,7 @@
     <v-container>
         <v-row v-if="isInit">
             <v-col cols="4" rows="4">
-                <RegisterDialog v-show="authStore.isLogin()" @registerDone="fetchList"/>
+                <RegisterDialog v-show="authStore.checkRole()" @registerDone="fetchList"/>
             </v-col>
             <v-col v-for="item in filterList" :key="item.id" cols="4" rows="4">
                 <v-card class="my-2" style="white-space:pre-wrap; word-wrap:break-word;">
@@ -10,7 +10,7 @@
                         <div class="d-flex justify-end">
                             <p>{{item.summary}}</p>
                             <v-spacer></v-spacer>
-                            <v-btn v-show="authStore.isLogin()" prepend-icon="mdi-delete" size="small" variant="text" @click="deletePlan(item.id)"></v-btn>
+                            <v-btn v-show="authStore.checkRole()" prepend-icon="mdi-delete" size="small" variant="text" @click="deletePlan(item.id)"></v-btn>
                         </div>
                     </v-card-title>
                     <v-card-actions>
