@@ -7,8 +7,8 @@
                     <v-textarea :readonly="!editFlg" v-model="detail" ></v-textarea>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn v-show="!editFlg" @click="editFlg = true" color="success">edit</v-btn>
-                    <v-btn v-show="editFlg" @click="editPlan" color="warning">save</v-btn>
+                    <v-btn v-show="!editFlg && authStore.checkRole()" @click="editFlg = true" color="success">edit</v-btn>
+                    <v-btn v-show="editFlg && authStore.checkRole()" @click="editPlan" color="warning">save</v-btn>
                     <v-btn @click="active = false">close</v-btn>
                 </v-card-actions>
             </v-card>
@@ -18,7 +18,9 @@
 
 <script setup>
   import axios from 'axios'
+  import { useAuthStore } from '@/store/auth'
   import {ref, defineProps} from 'vue'
+  const authStore = useAuthStore()
   const props = defineProps({
     summary: String,
     detail: String,

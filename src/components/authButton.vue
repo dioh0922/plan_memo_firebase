@@ -1,23 +1,25 @@
 <template>
-  <button @click="loginWithGoogle">
-    Google ログイン
-  </button>
+  <v-btn v-show="!authStore.isLogin()" @click="login" :loading="loading">ログイン</v-btn>
+  <v-btn v-show="authStore.isLogin()" @click="logout" :loading="loading">ログアウト</v-btn>
 </template>
 
 <script setup>
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@/firebase";
-
-const provider = new GoogleAuthProvider();
-
-const loginWithGoogle = async () => {
-  try {
-    await signInWithPopup(auth, provider);
-    console.log("Google ログイン成功");
-  } catch (error) {
-    console.error(error);
-  }
-};
+import { useAuthStore } from '@/store/auth'
+import { ref } from 'vue'
+const authStore = useAuthStore()
+const loading = ref(false)
+const login = () => {
+  loading.value = true
+  authStore.loginWithGoogle().finally(() => {
+    loading.value = false
+  })
+}
+const logout = () => {
+  loading.value = true
+  authStore.logout().finally(() => {
+    loading.value = false
+  })
+}
 
 </script>
 

@@ -7,6 +7,7 @@
         <v-app-bar-title>
           実現機能ネタまとめ
         </v-app-bar-title>
+        <AuthButton/>
       </v-app-bar>
       <v-main>
         <RouteList />
@@ -17,9 +18,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import AuthButton from './components/authButton.vue'
 import RouteList from './components/routeList.vue'
-  const isInit = ref(false)
-  onMounted(() => {
-    isInit.value = true
-  })
+const isInit = ref(false)
+onMounted(() => {
+  isInit.value = true
+})
 </script>

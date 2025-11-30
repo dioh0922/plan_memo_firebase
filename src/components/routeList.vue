@@ -2,7 +2,7 @@
     <v-container>
         <v-row v-if="isInit">
             <v-col cols="4" rows="4">
-                <RegisterDialog @registerDone="fetchList"/>
+                <RegisterDialog v-show="authStore.checkRole()" @registerDone="fetchList"/>
             </v-col>
             <v-col v-for="item in filterList" :key="item.id" cols="4" rows="4">
                 <v-card class="my-2" style="white-space:pre-wrap; word-wrap:break-word;">
@@ -10,7 +10,7 @@
                         <div class="d-flex justify-end">
                             <p>{{item.summary}}</p>
                             <v-spacer></v-spacer>
-                            <v-btn prepend-icon="mdi-delete" size="small" variant="text" @click="deletePlan(item.id)"></v-btn>
+                            <v-btn v-show="authStore.checkRole()" prepend-icon="mdi-delete" size="small" variant="text" @click="deletePlan(item.id)"></v-btn>
                         </div>
                     </v-card-title>
                     <v-card-actions>
@@ -28,9 +28,11 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted, computed } from 'vue'
+import { useAuthStore } from '@/store/auth'
 import RegisterDialog from './registerDialog.vue'
 import DetailDialog from './detailDialog.vue'
 
+const authStore = useAuthStore()
 const isInit = ref(false)
 
 const list = ref([])
