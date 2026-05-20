@@ -19,7 +19,8 @@
 <script setup>
   import axios from 'axios'
   import { useAuthStore } from '@/store/auth'
-  import {ref, defineProps} from 'vue'
+  import { ref, defineProps, defineEmits } from 'vue'
+  const emit = defineEmits(['editDone'])
   const authStore = useAuthStore()
   const props = defineProps({
     summary: String,
@@ -39,10 +40,12 @@
   const active = ref(false)
   const editFlg = ref(false)
   const editPlan = async () => {
-    axios.put(process.env.VUE_APP_API_URL + '/edit.php/' + props.id, {summary: summary.value, detail: detail.value})
+    axios.put(process.env.VUE_APP_API_URL + '/plan/edit/' + props.id, {summary: summary.value, detail: detail.value})
     .then((res) => {
       if(res.data.success){
-        //fetchList()
+        active.value = false
+        editFlg.value = false
+        emit('editDone', true)
       }
     }).catch(err => {
       console.log(err)
