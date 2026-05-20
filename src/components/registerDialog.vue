@@ -28,7 +28,7 @@
   const summary = ref("")
   const detail = ref("")
   const addIdea = async () => {
-    axios.post(process.env.VUE_APP_API_URL + '/create.php', {summary: summary.value, detail: detail.value})
+    axios.post(process.env.VUE_APP_API_URL + '/plan/create', {summary: summary.value, detail: detail.value})
     .then((res) => {
       if(res.data.success){
         active.value = false

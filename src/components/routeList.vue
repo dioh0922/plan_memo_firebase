@@ -17,7 +17,8 @@
                         <DetailDialog 
                         :summary="item.summary"
                         :detail="item.detail"
-                        :id="item.id"/>
+                        :id="item.id"
+                        @editDone="fetchList"/>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -38,7 +39,7 @@ const isInit = ref(false)
 const list = ref([])
 
 const deletePlan = async (id) => {
-  axios.delete(process.env.VUE_APP_API_URL + '/delete.php/' + id)
+  axios.delete(process.env.VUE_APP_API_URL + '/plan/delete/' + id)
   .then((res) => {
     if(res.data.success){
       fetchList()
@@ -53,7 +54,7 @@ const filterList = computed(() => {
 })
 
 const fetchList = () => {
-  axios.get(process.env.VUE_APP_API_URL + '/list.php')
+  axios.get(process.env.VUE_APP_API_URL + '/plan/list')
   .then(res => {
     console.log(res)
     if(res.data.success){
