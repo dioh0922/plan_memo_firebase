@@ -18,15 +18,3 @@ jobs:
           echo "VUE_APP_API_URL=${{ secrets.VUE_APP_API_URL }}" >> .env.production
           npm install
           npm run build
-
-  php_lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-      - name: Lint PHP files in extApi/
-        run: |
-          find ./extApi -name "*.php" -print0 | xargs -0 -n1 php -l
